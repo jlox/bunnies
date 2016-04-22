@@ -7,7 +7,6 @@ var height = c.height;
 var arrayBunnies = [];
 
 var spawn = function(){
-    console.log("hello");
     var f1 = makeDVD("bunnies1.png");
     f1.bounce();
     arrayBunnies.push(f1);
@@ -28,6 +27,15 @@ var stop = function(e){
     window.cancelAnimationFrame(hello);
 }
 
+var changey = function(){
+    var fancyBunnies = arrayBunnies.filter(function(bunny){
+	console.log(bunny.dvdX);
+	return ((bunny.dvdX <= 20));
+    }).map(function(bunny){
+	return bunny.changeLogo("bunnies2.png");
+    });
+    console.log(fancyBunnies);
+}
 
 var makeDVD = function(imgName){
     var dvdX = Math.random()*width/2;
@@ -38,6 +46,11 @@ var makeDVD = function(imgName){
     logo.src = imgName;
     //loadDVD
     //ctx.drawImage(logo,dvdX,dvdY,100,100);
+    
+    var changeLogo = function(img){
+	console.log("hiii");
+	logo.src = img;
+    }
     
     var bounce = function(){
 
@@ -79,6 +92,7 @@ var makeDVD = function(imgName){
 	dvdX: dvdX,
 	dvdY: dvdY,
 	bounce: bounce,
+	changeLogo: changeLogo,
     }
 };
 
@@ -115,11 +129,14 @@ var animate = function(){
 		currentBunny.movingUp = false;
 	    }
 	}
-	console.log(currentBunny.logo);
+	changey();
+
+
 	ctx.drawImage(currentBunny.logo,currentBunny.dvdX,currentBunny.dvdY,100,100);
     }
+    
     hello = window.requestAnimationFrame(animate);
-
+    
 }
 
 animate();
